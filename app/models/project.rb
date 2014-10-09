@@ -1,10 +1,16 @@
-class Project
+class Project < ActiveRecord::Base
 
-  attr_accessor :tasks, :due_date
+  # *** NOW MANAGED BY ACTIVE RECORD ***
+  # attr_accessor :tasks, :due_date
   
-  def initialize
-    @tasks = []
-  end
+  # def initialize
+  #   @tasks = []
+  # end
+  # *************************************
+
+
+  has_many :tasks
+  validates :name, presence: true
 
   def self.velocity_length_in_days
     21
@@ -21,7 +27,7 @@ class Project
   end
 
   def total_size
-    tasks.sum(&:size)
+    tasks.to_a.sum(&:size)
   end
   
   def remaining_size
@@ -30,7 +36,7 @@ class Project
   end
 
   def completed_velocity
-    tasks.sum(&:points_toward_velocity)
+    tasks.to_a.sum(&:points_toward_velocity)
   end
 
   def current_rate

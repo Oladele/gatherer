@@ -1,0 +1,13 @@
+h1>New Project</h1>
+
+<%= form_for @project do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :tasks %>
+  <%= text_area_tag :"project[tasks]" %>
+  <br>
+  <%= f.submit %>
+
+  <!-- This is boilerplate with one exception – we’re creating the text area for tasks by using a text_area_tag rather than the ActiveRecord data aware text_area method. This is because we’re going to be doing some processing on the list of tasks, and tasks isn’t a basic attribute of Project. If you do use f.text_area :tasks, then Rails tries to make the value of the text area the value of the tasks relation and places in that text area an ugly Ruby string representation of the empty relation, which is not what we want. -->
+<% end %>
