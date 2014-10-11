@@ -40,4 +40,11 @@ describe("with a list of tasks", function() {
     expect($("tr")).toMatchDomIds(["task_2", "task_1", "task_3"]);
 
   });
+
+  it("can handle up click with spy", function() {
+    spyOn(Project, 'taskFromAnchor').and.returnValue($("#task_2"));
+    Project.upClickOn($("#task_2 .up"));
+    expect($("tr")).toMatchDomIds(["task_2", "task_1", "task_3"]);
+    expect(Project.taskFromAnchor).toHaveBeenCalled();
+  });
 });
