@@ -1,5 +1,6 @@
 describe("with a list of tasks", function() {
   beforeEach(function() {
+    jasmine.addMatchers(customMatchers);
     table = affix("table");
     table.affix("tr.task#task_1 a.up");
     table.affix("tr.task#task_2 a.up+a.down");
@@ -21,14 +22,22 @@ describe("with a list of tasks", function() {
 
   it("can swap two rows", function() {
     Project.swapRows($("#task_1"), $("#task_2"));
-    expect($.map($("tr"), function(item) { 
-      return $(item).attr("id") }))
-    .toEqual(["task_2", "task_1", "task_3"]); });
+    // expect($.map($("tr"), function(item) { 
+    //   return $(item).attr("id") }))
+    // .toEqual(["task_2", "task_1", "task_3"]); 
+
+    expect($("tr")).toMatchDomIds(["task_2", "task_1", "task_3"]);
+
+
+  });
 
   it("can handle up click", function() {
     Project.upClickOn($("#task_2 .up"));
-    expect($.map($("tr"), function(item) { 
-      return $(item).attr("id") }))
-    .toEqual(["task_2", "task_1", "task_3"]); 
+    // expect($.map($("tr"), function(item) { 
+    //   return $(item).attr("id") }))
+    // .toEqual(["task_2", "task_1", "task_3"]); 
+
+    expect($("tr")).toMatchDomIds(["task_2", "task_1", "task_3"]);
+
   });
 });
