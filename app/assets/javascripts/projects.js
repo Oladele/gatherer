@@ -23,7 +23,27 @@ var Project = {
       previousRow = Project.previousTask(row);
       if(previousRow == null) { return };
       Project.swapRows(previousRow, row);
-    } 
+      Project.ajaxCall(row.attr("id"), "up");
+    },
+
+  ajaxCall: function(domId, upOrDown) {
+    taskId = domId.split("_")[1];
+    
+    $.ajax({
+      url: "/tasks/" + taskId + "/" + upOrDown + ".js", 
+      data: { "_method": "PATCH"},
+      type: "POST"
+    }).done(function(data) {
+      Project.successfulUpdate(data)
+    }).fail(function(data) {
+      Project.failedUpdate(data);
+    });
+
+  },
+
+  successfulUpdate: function(data) {},
+
+  failedUpdate: function(data) {}
 }
 
 $(function() {
