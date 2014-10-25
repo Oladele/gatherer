@@ -21,4 +21,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update
+    @project = Project.find params[:id]
+    success = @project.update_attributes params[:project]
+    if success
+      redirect_to @project, notice: "'project was successfully updated.'"
+    else
+      render :edit
+    end
+  end
+
 end
