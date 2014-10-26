@@ -121,6 +121,17 @@ RSpec.describe Project do
       project.due_date = 6.months.from_now
       expect(project).to be_on_schedule
     end
+
+    it "knows if its on schedule when velocity is 0" do
+      project.tasks = [small_not_done]
+      expect(project).not_to be_on_schedule
+    end
+
+    it "knows if its on schedule when due_date is undefined" do
+      project.due_date = nil
+      expect(project).to be_on_schedule
+    end
+
   end
 
 end
