@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe TasksController, :type => :controller do
 
   before(:example) do
+    sign_in User.create!(email: "rspec@example.com", password: "password")
+  end
+  
+  before(:example) do
     ActionMailer::Base.deliveries.clear
   end
 
